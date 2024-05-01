@@ -185,11 +185,90 @@ ShowSequence(6);
 "h-o" ➞ "hijklmno"
 "Q-Z" ➞ "QRSTUVWXYZ"
 "J-J" ➞ "J"*/
- static string GimmeTheLetters(string sp)
+/* static string GimmeTheLetters(string sp)
 {
     int rangeStart = (int)sp[0];
     int rangeEnd = (int)sp[2];
     
     return string.Concat(Enumerable.Range(rangeStart, rangeEnd).Select(x => (char)x).Where(x => x <= rangeEnd));
 }
-GimmeTheLetters("a-b");
+GimmeTheLetters("a-b");*/
+
+/*Complete the method which returns the number which is most frequent in the given input array. If there is a tie for most frequent number, return the largest number among them.
+Note: no empty arrays will be given.
+Examples
+[12, 10, 8, 12, 7, 6, 4, 10, 12] --> 12
+[12, 10, 8, 12, 7, 6, 4, 10, 12, 10]-- > 12
+[12, 10, 8, 8, 3, 3, 3, 3, 2, 4, 10, 12, 10]-- > 3*/
+
+/*static int HighestRank(int[] arr)
+{
+    *//*for (int i = 0; i < arr.Length; i++)
+    {
+        return 0;s
+    }*//*
+    var intList = arr.ToList();
+    intList.Sort();
+    var consecutivePairs = intList.Zip(intList.Skip(1), (current, next) => current == next);
+    Console.WriteLine(string.Join(", ", consecutivePairs));
+    return 9;
+}
+var arr = new int[] { 12, 10, 8, 12, 7, 6, 4, 10, 12 };
+HighestRank(arr);*/
+
+/*The first input array is the key to the correct answers to an exam, like["a", "a", "b", "d"]. The second one contains a student's submitted answers.
+
+The two arrays are not empty and are the same length. Return the score for this array of answers, giving +4 for each correct answer, -1 for each incorrect answer, and +0 for each blank answer, represented as an empty string (in C the space character is used).
+
+If the score < 0, return 0.
+For example:
+checkExam(["a", "a", "b", "b"], ["a", "c", "b", "d"]) → 6
+checkExam(["a", "a", "c", "b"], ["a", "a", "b",  ""]) → 7
+checkExam(["a", "a", "b", "c"], ["a", "a", "b", "c"]) → 16
+checkExam(["b", "c", "b", "a"],["",  "a", "a", "c"]) → 0*/
+
+
+/*  static int CheckExam(string[] arr1, string[] arr2)
+    {
+*//*    int result = 0;
+    for (int i = 0; i < arr1.Length; i++)
+    {
+        if (arr1[i] == arr2[i])
+        {
+            result += 4;
+        }
+        if (arr1[i] != arr2[i] && arr2[i] != "")
+        {
+            result -= 1;
+        }
+        else if (arr1[i] != arr2[i] && arr2[i] == "")
+        {
+            result += 0;
+        }
+    }
+    return result < 0 ? result * 0 : result;*//*
+    int result = 0;
+    for (int i = 0; i < arr1.Length; i++)
+    {
+        result = arr2[i] == "" ? result + 0 : arr1[i] == arr2[i] ? result + 4 : result - 1;
+    }
+    return result < 0 ? 0 : result;
+}*/
+
+/*Write a function that when given a number >= 0, returns an Array of ascending length subarrays.
+pyramid(0) => [ ]
+pyramid(1) => [ [1] ]
+pyramid(2) => [ [1], [1, 1] ]
+pyramid(3) => [ [1], [1, 1], [1, 1, 1] ]
+Note: the subarrays should be filled with 1s*/
+static int[][] Pyramid(int n)
+{
+    int[][] pyramid = new int[n][];
+    for (int i = 0; i < n; i++)
+    {
+        int[] array = new int [i + 1];
+        pyramid[i] = array.Select(item => item + 1).ToArray();
+    }
+    return pyramid;
+}
+Pyramid(7);
