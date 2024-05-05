@@ -261,7 +261,7 @@ pyramid(1) => [ [1] ]
 pyramid(2) => [ [1], [1, 1] ]
 pyramid(3) => [ [1], [1, 1], [1, 1, 1] ]
 Note: the subarrays should be filled with 1s*/
-static int[][] Pyramid(int n)
+/*static int[][] Pyramid(int n)
 {
     int[][] pyramid = new int[n][];
     for (int i = 0; i < n; i++)
@@ -271,4 +271,107 @@ static int[][] Pyramid(int n)
     }
     return pyramid;
 }
-Pyramid(7);
+// static int[][] Pyramid(int n) => Enumerable.Range(1, n).Select(x => Enumerable.Repeat(1, x).ToArray()).ToArray();
+Pyramid(7);*/
+
+/*Create a function that takes a Roman numeral as its argument and returns its value as a numeric decimal integer. 
+You don't need to validate the form of the Roman numeral.*/
+
+/*Check to see if a string has the same amount of 'x's and 'o's. The method must return a boolean and be case insensitive. The string can contain any char.
+
+Examples input/output:
+
+XO("ooxx") => true
+XO("xooxx") => false
+XO("ooxXm") => true
+XO("zpzpzpp") => true // when no 'x' and 'o' is present should return true
+XO("zzoo") => false*/
+/*static bool XO(string input)
+{
+    int oCount = 0;
+    int xCount = 0;
+
+    if (input == "")
+    {
+        return true;
+    }
+
+    for (int i = 0; i < input.Length; i++)
+    {
+        if (input[i].ToString().ToLower() == "o") oCount += 1;
+        if (input[i].ToString().ToLower() == "x") xCount += 1;
+    }
+    return (xCount > 0 && oCount > 0) ? oCount == xCount : false;
+
+    // easy senior one-liner :D
+    // return input.ToLower().Count(i => i == 'x') == input.ToLower().Count(i => i == 'o');
+}
+XO("xoXm");*/
+
+/*Assume "#" is like a backspace in string. This means that string "a#bc#d" actually is "bd"
+Your task is to process a string with "#" symbols.
+Examples
+"abc#d##c"      ==>  "ac"
+"abc##d######"  ==>  ""
+"#######"       ==>  ""
+""              ==>  ""*/
+
+/*static string CleanString(string s)
+  {
+    char[] chars = s.ToCharArray();
+    int count = 0;
+
+    foreach (char c in chars)
+    {
+        if (c == '#')
+        {
+            if (count > 0)
+            {
+                chars[count - 1] = '\0';
+                count--;
+            }
+        }
+        else
+        {
+            chars[count++] = c;
+        }
+    }
+
+    string cleanedString = new string(chars, 0, count);
+
+    return cleanedString;
+}
+
+CleanString("abc####d##c#");*/
+
+/*Implement a function that accepts 3 integer values a, b, c. 
+The function should return true if a triangle can be built with the sides of given length and false in any other case.
+static bool IsTriangle(int a, int b, int c)
+{
+    return a > 0 && a + b > c && b + c > a && a + c > b;
+}*/
+
+/*Winter is coming, you must prepare your ski holidays. The objective of this kata is to determine the number of pair of gloves you can constitute from the gloves you have in your drawer.
+
+Given an array describing the color of each glove, return the number of pairs you can constitute, assuming that only gloves of the same color can form pairs.
+
+Examples:
+input = ["red", "green", "red", "blue", "blue"]
+result = 2(1 red pair + 1 blue pair)
+
+input = ["red", "red", "red", "red", "red", "red"]
+result = 3(3 red pairs)*/
+
+static int NumberOfPairs(string[] gloves)
+{
+    return -1;
+}
+
+
+/*static int RomanDecodeSolution(string roman){
+    string[] romanNumerals =  { "I","V","X", "L", "C", "D", "M" };
+
+    int[] values = { 1, 5, 19, 50, 100, 500, 1000 };
+    return 0;
+}
+RomanDecodeSolution("M");*/
