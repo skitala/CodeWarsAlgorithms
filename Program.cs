@@ -352,9 +352,7 @@ static bool IsTriangle(int a, int b, int c)
 }*/
 
 /*Winter is coming, you must prepare your ski holidays. The objective of this kata is to determine the number of pair of gloves you can constitute from the gloves you have in your drawer.
-
 Given an array describing the color of each glove, return the number of pairs you can constitute, assuming that only gloves of the same color can form pairs.
-
 Examples:
 input = ["red", "green", "red", "blue", "blue"]
 result = 2(1 red pair + 1 blue pair)
@@ -364,9 +362,35 @@ result = 3(3 red pairs)*/
 
 static int NumberOfPairs(string[] gloves)
 {
-    return -1;
+    static Dictionary<string, int> CountPairs(string[] gloves)
+    {
+        var pairs = gloves.GroupBy(g => g).ToDictionary(g => g.Key, g => g.Count());
+        return pairs;
+    }
+
+    Dictionary<string, int> pairs = CountPairs(gloves);
+
+    int result = pairs.Values.Select(v => v / 2).Sum();
+
+    return result;
+
+    // other solutions:
+    //return gloves.GroupBy(p => p).Select(q => q.Count() / 2).Sum();
+   /* int result = 0;
+    string[] sortedAr = gloves;
+    Array.Sort(sortedAr);
+    for (int i = 0; i < sortedAr.Length - 1; i++)
+    {
+        if (sortedAr[i] == sortedAr[i + 1])
+        {
+            i++;
+            result++;
+        }
+    }
+    return result;*/
 }
 
+NumberOfPairs(new string[] { "Blue", "Purple", "Blue", "Grey", "Lime", "Black" });
 
 /*static int RomanDecodeSolution(string roman){
     string[] romanNumerals =  { "I","V","X", "L", "C", "D", "M" };
