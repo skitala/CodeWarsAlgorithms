@@ -360,7 +360,7 @@ result = 2(1 red pair + 1 blue pair)
 input = ["red", "red", "red", "red", "red", "red"]
 result = 3(3 red pairs)*/
 
-static int NumberOfPairs(string[] gloves)
+/*static int NumberOfPairs(string[] gloves)
 {
     static Dictionary<string, int> CountPairs(string[] gloves)
     {
@@ -376,7 +376,7 @@ static int NumberOfPairs(string[] gloves)
 
     // other solutions:
     //return gloves.GroupBy(p => p).Select(q => q.Count() / 2).Sum();
-   /* int result = 0;
+   *//* int result = 0;
     string[] sortedAr = gloves;
     Array.Sort(sortedAr);
     for (int i = 0; i < sortedAr.Length - 1; i++)
@@ -387,10 +387,69 @@ static int NumberOfPairs(string[] gloves)
             result++;
         }
     }
-    return result;*/
+    return result;*//*
 }
 
-NumberOfPairs(new string[] { "Blue", "Purple", "Blue", "Grey", "Lime", "Black" });
+NumberOfPairs(new string[] { "Blue", "Purple", "Blue", "Grey", "Lime", "Black" });*/
+
+/*Complete the function/method so that it takes a PascalCase string and returns the string in snake_case notation. Lowercase characters can be numbers. If the method gets a number as input, it should return a string.
+Examples
+"TestController"  -->  "test_controller"
+"MoviesAndBooks"  -->  "movies_and_books"
+"App7Test"        -->  "app7_test"
+1                 -->  "1"*/
+
+static string ToUnderscore(object str)
+{
+    if (str is int)
+    {
+        return str.ToString();
+    }
+    else if (str is string)
+    {
+        string lowerCaseString = str.ToString().ToLower();
+        string snake_case = "";
+        for (int i = 0; i < str.ToString().Length; i++)
+        {
+            if (str.ToString()[i] == lowerCaseString[i])
+            {
+                snake_case += lowerCaseString[i];
+            }
+            else
+            {
+                snake_case += "_" + lowerCaseString[i];
+            }
+        }
+        return snake_case.Substring(1);
+    }
+    return "";
+}
+
+// other solution
+
+/*using System.Text;
+
+public static string ToUnderscore(int str)
+{
+    return ToUnderscore(str.ToString());
+}
+
+public static string ToUnderscore(string str)
+{
+    StringBuilder sb = new StringBuilder();
+    foreach (var ch in str)
+    {
+        if (Char.IsUpper(ch))
+        {
+            sb.Append('_');
+        }
+        sb.Append(Char.ToLower(ch));
+    }
+    return sb.ToString().TrimStart('_');
+}
+
+
+ToUnderscore("ThisIsBeautifulDay");*/
 
 /*static int RomanDecodeSolution(string roman){
     string[] romanNumerals =  { "I","V","X", "L", "C", "D", "M" };
