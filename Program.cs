@@ -1,4 +1,8 @@
-﻿/*
+﻿using System;
+using System.Drawing;
+using System.Linq;
+
+/*
 int[] candies = { 8, 4, 1, 7 };
  static int GetMissingCandies(int[] candies)
 {
@@ -399,7 +403,7 @@ Examples
 "App7Test"        -->  "app7_test"
 1                 -->  "1"*/
 
-static string ToUnderscore(object str)
+/*static string ToUnderscore(object str)
 {
     if (str is int)
     {
@@ -423,7 +427,7 @@ static string ToUnderscore(object str)
         return snake_case.Substring(1);
     }
     return "";
-}
+}*/
 
 // other solution
 
@@ -447,7 +451,8 @@ public static string ToUnderscore(string str)
     }
     return sb.ToString().TrimStart('_');
 }
-
+ public static string ToUnderscore(int str) => str.ToString();
+ public static string ToUnderscore(string str) => Regex.Replace(str, "(\\B[A-Z]\\B)", "_$1").ToLower();
 
 ToUnderscore("ThisIsBeautifulDay");*/
 
@@ -458,3 +463,273 @@ ToUnderscore("ThisIsBeautifulDay");*/
     return 0;
 }
 RomanDecodeSolution("M");*/
+
+// N-th Fibonacci
+
+/*I love Fibonacci numbers in general, but I must admit I love some more than others.
+I would like for you to write me a function that, when given a number n (n >= 1 ), returns the nth number in the Fibonacci Sequence.
+For example:
+NthFib(4) == 2
+Because 2 is the 4th number in the Fibonacci Sequence.
+For reference, the first two numbers in the Fibonacci sequence are 0 and 1, and each subsequent number is the sum of the previous two.*/
+
+/*static int NthFib(int n)
+{
+     List<int> GenerateFibonacci(int n)
+    {
+        List<int> sequence = new List<int>();
+
+        for (int i = 0; i < n; i++)
+        {
+            if (i > 1)
+            {
+                int sum = sequence[i - 1] + sequence[i - 2];
+                sequence.Add(sum);
+            }
+            else
+            {
+                sequence.Add(i);
+            }
+        }
+        return sequence;
+    }
+
+    List<int> fibonacciSequence = GenerateFibonacci(n);
+
+    return fibonacciSequence[n - 1];
+
+    // Senior solution: 
+    static int NthFib(int n)
+    {
+        if (n == 1) return 0;
+        if (n == 2) return 1;
+        return NthFib(n - 2) + NthFib(n - 1);
+    }
+}
+
+Console.WriteLine(NthFib(4));*/
+
+/*using System.ComponentModel.Design;
+For this exercise you will be strengthening your page-fu mastery. You will complete the PaginationHelper class, which is a utility class helpful for querying paging information related to an array.
+The class is designed to take in an array of values and an integer indicating how many items will be allowed per each page. The types of values contained within the collection/array are not relevant.
+The following are some examples of how this class is used:
+
+var helper = new PaginationHelper<char>(new List<char> { 'a', 'b', 'c', 'd', 'e', 'f' }, 4);
+helper.PageCount; // should == 2
+helper.ItemCount; // should == 6
+helper.PageItemCount(0); // should == 4
+helper.PageItemCount(1); // last page - should == 2
+helper.PageItemCount(2); // should == -1 since the page is invalid
+
+// pageIndex takes an item index and returns the page that it belongs on
+helper.PageIndex(5); // should == 1 (zero based index)
+helper.PageIndex(2); // should == 0
+helper.PageIndex(20); // should == -1
+helper.PageIndex(-10); // should == -1*/
+
+/*public class PaginationHelper<T>
+{
+    // TODO: Complete this class
+    private readonly IList<T> _collection;
+    public int _itemsPerPage;
+
+    /// <summary>
+    /// Constructor, takes in a list of items and the number of items that fit within a single page
+    /// </summary>
+    /// <param name="collection">A list of items</param>
+    /// <param name="itemsPerPage">The number of items that fit within a single page</param>
+    public PaginationHelper(IList<T> collection, int itemsPerPage)
+    {
+        _collection = collection;
+        _itemsPerPage = itemsPerPage;
+    }
+
+    /// <summary>
+    /// The number of items within the collection
+    /// </summary>
+    public int ItemCount
+    {
+        get
+        {
+            return _collection.Count() >= 0 ? _collection.Count() : -1;
+        }
+    }
+
+    /// <summary>
+    /// The number of pages
+    /// </summary>
+    public int PageCount
+    {
+        get
+        {
+            return (int)Math.Ceiling((double)_collection.Count() / _itemsPerPage);
+        }
+    }
+
+    /// <summary>
+    /// Returns the number of items in the page at the given page index 
+    /// </summary>
+    /// <param name="pageIndex">The zero-based page index to get the number of items for</param>
+    /// <returns>The number of items on the specified page or -1 for pageIndex values that are out of range</returns>
+    public int PageItemCount(int pageIndex)
+    {
+        if (pageIndex >= PageCount || pageIndex <= -1)
+        {
+            return -1;
+        }
+        if (pageIndex == PageCount - 1)
+        {
+            return ItemCount % _itemsPerPage == 0 ? ItemCount / PageCount : ItemCount % _itemsPerPage;
+        }
+        return _itemsPerPage;
+    }
+
+    /// <summary>
+    /// Returns the page index of the page containing the item at the given item index.
+    /// </summary>
+    /// <param name="itemIndex">The zero-based index of the item to get the pageIndex for</param>
+    /// <returns>The zero-based page index of the page containing the item at the given item index or -1 if the item index is out of range</returns>
+    public int PageIndex(int itemIndex)
+    {
+        return itemIndex + 1 <= ItemCount && itemIndex > -1 ? (int)Math.Floor((decimal)itemIndex / _itemsPerPage) : -1;
+    }
+}*/
+
+/*Given an array arr of strings, complete the function by calculating the total perimeter of all the islands.
+Each piece of land will be marked with 'X' while the water fields are represented as 'O'. Consider each tile being a perfect 1 x 1 piece of land. Some examples for better visualization:
+
+['XOOXO',
+ 'XOOXO',
+ 'OOOXO',
+ 'XXOXO',
+ 'OXOOO']*/
+
+/*static string Calculate(string[] map)
+{
+    int total = 0;
+    var squarePositions = new List<int[]>();
+
+    for (var row = 0; row < map.Length; row++)
+    {
+        var matrixRow = map[row];
+
+        var rowLinesCount = matrixRow.Where(ch => ch.ToString() == "X").Count();
+
+        List<int> squaresPerRow = new List<int>();
+
+        int rowLength = matrixRow.Length;
+
+        if (rowLength == 1)
+        {
+            return $"Total land perimeter: {rowLinesCount * 4}";
+        }
+        for (int i = 0; i < rowLength; i++)
+        {
+            if (matrixRow[i].ToString() == "X")
+            {
+                total += 4;
+                squaresPerRow.Add(i);
+            }
+        }
+
+        squarePositions.Add(squaresPerRow.ToArray());
+    }
+    if (squarePositions.ToList().Count() >= 1)
+    {
+        for (int row = 0; row < squarePositions.ToArray().Length; row++)
+        {
+            var squarePositionsRow = squarePositions[row];
+
+            var squaresPerRow = squarePositionsRow.Length;
+
+            var matrixRow = map[row];
+
+            if (row < squarePositions.ToArray().Length - 1)
+            {
+                int numOfNextMatches = squarePositionsRow.Where(p => squarePositions[row + 1].Contains(p)).Count();
+
+                if (numOfNextMatches > 0)
+                {
+                    total -= numOfNextMatches * 2;
+                }
+            }
+            for (int i = matrixRow.ToArray().Length - 1; i > 0; i--)
+            {
+                if (matrixRow[i].ToString() == "X")
+                {
+                    if (matrixRow[i].ToString() == matrixRow[i - 1].ToString())
+                    {
+                        total -= 2;
+                    }
+                }
+            }
+        }
+    }
+    return $"Total land perimeter: {total}";
+}*/
+// Senior solution:
+
+/*static string Calculate(string[] map)
+{
+    var sum = 0;
+    for (var i = 0; i < map.Length; i++)
+    {
+        for (var j = 0; j < map[i].Length; j++)
+        {
+            if (map[i][j] == 'X')
+            {
+                sum += 4;
+                if (i + 1 < map.Length && map[i + 1][j] == 'X')
+                {
+                    sum -= 2;
+                }
+                if (j + 1 < map[i].Length && map[i][j + 1] == 'X')
+                {
+                    sum -= 2;
+                }
+            }
+        }
+    }
+    return $"Total land perimeter: {sum}";
+}
+*/
+//Calculate(new string[] { "XOOOXOO", "OXOOOOO", "XOXOXOO", "OXOXXOO", "OOOOOXX", "OOOXOXX", "XXXXOXO" });
+
+/*Given two integers a and b, which can be positive or negative, find the sum of all the integers between and including them and return it. If the two numbers are equal return a or b.
+
+Note: a and b are not ordered!
+
+Examples (a, b) --> output(explanation)
+(1, 0)-- > 1(1 + 0 = 1)
+(1, 2)-- > 3(1 + 2 = 3)
+(0, 1)-- > 1(0 + 1 = 1)
+(1, 1)-- > 1(1 since both are same)
+(-1, 0)-- > -1(-1 + 0 = -1)
+(-1, 2)-- > 2(-1 + 0 + 1 + 2 = 2)*/
+/*static int GetSum(int a, int b)
+{
+    int sum = 0;
+
+    if (a < b)
+    {
+        for (int i = a; i <= b; i++)
+        {
+            sum += i;
+        }
+    }
+    if (a > b)
+    {
+        for (int i = a; i >= b; i--)
+        {
+            sum += i;
+        }
+    }
+    if(a == b)
+    {
+        return a;
+    }
+    return sum;
+}
+// Senior solution :D
+static int GetSum(int a, int b) => (Math.Abs(a - b) + 1) * (a + b) / 2;
+GetSum(2, 1);*/
