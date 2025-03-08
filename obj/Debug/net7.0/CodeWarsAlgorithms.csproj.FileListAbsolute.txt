@@ -3,7 +3,6 @@ C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\bin\Debug\net7
 C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\bin\Debug\net7.0\CodeWarsAlgorithms.runtimeconfig.json
 C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\bin\Debug\net7.0\CodeWarsAlgorithms.dll
 C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\bin\Debug\net7.0\CodeWarsAlgorithms.pdb
-C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\obj\Debug\net7.0\CodeWarsAlgorithms.csproj.AssemblyReference.cache
 C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\obj\Debug\net7.0\CodeWarsAlgorithms.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\obj\Debug\net7.0\CodeWarsAlgorithms.AssemblyInfoInputs.cache
 C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\obj\Debug\net7.0\CodeWarsAlgorithms.AssemblyInfo.cs
@@ -13,3 +12,4 @@ C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\obj\Debug\net7
 C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\obj\Debug\net7.0\CodeWarsAlgorithms.pdb
 C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\obj\Debug\net7.0\CodeWarsAlgorithms.genruntimeconfig.cache
 C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\obj\Debug\net7.0\ref\CodeWarsAlgorithms.dll
+C:\Users\johny\source\repos\CodeWarsAlgorithms\CodeWarsAlgorithms\obj\Debug\net7.0\CodeWarsAlgorithms.sourcelink.json

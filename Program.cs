@@ -1,6 +1,12 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Security.Cryptography;
+using System.Text;
 
 /*
 int[] candies = { 8, 4, 1, 7 };
@@ -733,3 +739,149 @@ Examples (a, b) --> output(explanation)
 // Senior solution :D
 static int GetSum(int a, int b) => (Math.Abs(a - b) + 1) * (a + b) / 2;
 GetSum(2, 1);*/
+
+//I'm sure, you know Google's "Did you mean ...?", when you entered a search term and mistyped a word. In this kata we want to implement something similar.
+//You'll get an entered term (lowercase string) and an array of known words (also lowercase strings). Your task is to find out, which word from the dictionary is most similar to the entered one. The similarity is described by the minimum number of letters you have to add, remove or replace in order to get from the entered word to one of the dictionary. The lower the number of required changes, the higher the similarity between each two words.
+//Same words are obviously the most similar ones. A word that needs one letter to be changed is more similar to another word that needs 2 (or more) letters to be changed. E.g. the mistyped term berr is more similar to beer (1 letter to be replaced) than to barrel (3 letters to be changed in total).
+//Extend the dictionary in a way, that it is able to return you the most similar word from the list of known words.
+//Code Examples:
+
+//var fruits = new Kata(new List<string> { "cherry", "pineapple", "melon", "strawberry", "raspberry" });
+//fruits.FindMostSimilar("strawbery"); // must return "strawberry"
+//fruits.FindMostSimilar("berry"); // must return "cherry"
+
+//things = new Dictionary(new List<string> { "stars", "mars", "wars", "codec", "codewars" });
+//things.FindMostSimilar("coddwars"); // must return "codewars"
+
+//languages = new Dictionary(new List<string> { "javascript", "java", "ruby", "php", "python", "coffeescript" });
+//languages.FindMostSimilar("heaven"); // must return "java"
+
+//var words = new List<string> { "cherry", "pineapple", "melon", "strawberry", "raspberry" };
+//string FindMostSimilar(string term)
+//{
+//    List<int> mathchesPerWord = new List<int>();
+
+//    for (int i = 0; i < words.ToArray().Length; i++)
+//    {
+//        var charArray = words[i].ToCharArray();
+
+//        int matches = 0;
+
+//        //int maxLengthMismatch = charArray.Length + 2;
+//        //int minLengthMismatch = charArray.Length + -2;
+
+//        //if (term.Length <= maxLengthMismatch && term.Length >= minLengthMismatch)
+//        //{
+//        //    matches++;
+//        //}
+
+//        for (int y = 0; y < charArray.Length; y++)
+//        {
+//            if (term.Contains(charArray[y]))
+//            {
+//                matches++;
+//            }
+//        }
+//        mathchesPerWord.Add(matches);
+//    }
+//    for (int i = 0; i < words.ToArray().Length; i++)
+//    {
+//        if (term.Length < mathchesPerWord[i] && mathchesPerWord[i] == term.Length || mathchesPerWord[i] <= term.Length - 1)
+//        {
+//            mathchesPerWord[i]++;
+//        }
+//    }
+//    var match = mathchesPerWord.Max();
+
+
+//    var matchIndex = mathchesPerWord.IndexOf(match);
+
+//    List<string> possibleMatches = new List<string>();
+//    foreach (var word in mathchesPerWord)
+//    {
+//        //if (word == match)
+//        //{
+//        //    possibleMatches.Add(words[matchIndex]);
+//        //}
+//        //if (words[matchIndex].Length == term.Length - 1 || words[matchIndex].Length == term.Length + 1 || words[matchIndex].Length == term.Length)
+//        //{
+//        //    possibleMatches.Add(words[matchIndex]);
+//        //}
+//    }
+//    Console.WriteLine(words[matchIndex]);
+//    Console.WriteLine(string.Join(", ", mathchesPerWord));
+//    Console.WriteLine(string.Join(", ", possibleMatches));
+
+//    return words[matchIndex];
+//}
+
+//FindMostSimilar("berry");
+
+
+
+static string ComputeMD5Hash(string input)
+{
+    byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+
+    using (MD5 md5 = MD5.Create())
+    {
+        var str = Encoding.UTF8.GetBytes("827ccb0eea8a706c4c34a16891f84e7b");
+        var test = MD5.HashData(str);
+        byte[] hashBytes = md5.ComputeHash(inputBytes);
+        StringBuilder sb = new StringBuilder();
+        foreach (byte b in hashBytes)
+        {
+            sb.Append(b.ToString("x2"));
+        }
+        Console.WriteLine("Hash: " + sb.ToString());
+        return sb.ToString();
+    }
+}
+static string crack(string hash)
+{
+    var pinLength = 5;
+    var hashTest = "00000";
+    var numberOfPenTests = 0;
+    var crackedPinHash = hash == hashTest;
+    var maxNumOfCombination = Math.Pow(10, pinLength);
+
+    var currentNum = 1;
+    while (!crackedPinHash)
+    {
+        for (int i = 0; i < maxNumOfCombination; i++)
+        {
+            var potentialPin = hashTest.Substring(0, pinLength - i.ToString().Length);
+            potentialPin += i.ToString();
+            numberOfPenTests++;
+            var potentialHash = ComputeMD5Hash(potentialPin);
+
+            if (hash == potentialHash)
+            {
+                crackedPinHash = true;
+                hashTest = potentialPin;
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+
+
+        crackedPinHash = true;
+        currentNum++;
+        Console.WriteLine("PIN: " + new string(hashTest));
+    }
+    // C0d3 g03s h3r3
+    string inputString = "92000";
+    string hashValue = ComputeMD5Hash(inputString);
+    Console.WriteLine($"MD5 Hash: {hashValue}");
+    Console.WriteLine($"Result: {hashTest}");
+    ComputeMD5Hash(inputString);
+    Console.WriteLine($"Number of pen tests: {numberOfPenTests}");
+    return hashTest;
+
+
+}
+//crack("5e8bc9faf28ed52ee7c6142f69a12616");
+crack("827ccb0eea8a706c4c34a16891f84e7b");
