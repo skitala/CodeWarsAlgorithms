@@ -819,69 +819,103 @@ GetSum(2, 1);*/
 
 
 
+//static string ComputeMD5Hash(string input)
+//{
+//    byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+
+//    using (MD5 md5 = MD5.Create())
+//    {
+//        var str = Encoding.UTF8.GetBytes(input);
+//        var test = MD5.HashData(str);
+//        byte[] hashBytes = md5.ComputeHash(inputBytes);
+//        StringBuilder sb = new StringBuilder();
+//        foreach (byte b in hashBytes)
+//        {
+//            sb.Append(b.ToString("x2"));
+//        }
+//        Console.WriteLine("Hash: " + sb.ToString());
+//        return sb.ToString();
+//    }
+//}
+//static string crack(string hash)
+//{
+//    var pinLength = 5;
+//    var hashTest = "00000";
+//    var numberOfPenTests = 0;
+//    var crackedPinHash = hash == hashTest;
+//    var maxNumOfCombination = Math.Pow(10, pinLength);
+
+//    var currentNum = 1;
+//    while (!crackedPinHash)
+//    {
+//        for (int i = 0; i < maxNumOfCombination; i++)
+//        {
+//            var potentialPin = hashTest.Substring(0, pinLength - i.ToString().Length);
+//            potentialPin += i.ToString();
+//            numberOfPenTests++;
+//            var potentialHash = ComputeMD5Hash(potentialPin);
+
+//            if (hash == potentialHash)
+//            {
+//                crackedPinHash = true;
+//                hashTest = potentialPin;
+//                return potentialPin;
+//            }
+//            else
+//            {
+//                continue;
+//            }
+//        }
+
+
+//        crackedPinHash = true;
+//        currentNum++;
+//        Console.WriteLine("PIN: " + new string(hashTest));
+//    }
+//    // C0d3 g03s h3r3
+//    string inputString = "92000";
+//    string hashValue = ComputeMD5Hash(inputString);
+//    Console.WriteLine($"MD5 Hash: {hashValue}");
+//    Console.WriteLine($"Result: {hashTest}");
+//    ComputeMD5Hash(inputString);
+//    Console.WriteLine($"Number of pen tests: {numberOfPenTests}");
+//    return hashTest;
+
+
+//}
+////crack("5e8bc9faf28ed52ee7c6142f69a12616");
+//crack("827ccb0eea8a706c4c34a16891f84e7b");
+
+static string crack(string hash)
+{
+    var pinLength = 5;
+    var maxNumOfCombination = Math.Pow(10, pinLength);
+    for (int i = 0; i < maxNumOfCombination; i++)
+    {
+        var potentialPin = i.ToString("D5");
+        var potentialHash = ComputeMD5Hash(potentialPin);
+
+        if (hash == potentialHash)
+        {
+            Console.WriteLine(potentialPin);
+            return potentialPin;
+        }
+    }
+    return "";
+}
+
 static string ComputeMD5Hash(string input)
 {
-    byte[] inputBytes = Encoding.UTF8.GetBytes(input);
-
     using (MD5 md5 = MD5.Create())
     {
-        var str = Encoding.UTF8.GetBytes("827ccb0eea8a706c4c34a16891f84e7b");
-        var test = MD5.HashData(str);
-        byte[] hashBytes = md5.ComputeHash(inputBytes);
+        byte[] hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
         StringBuilder sb = new StringBuilder();
         foreach (byte b in hashBytes)
         {
             sb.Append(b.ToString("x2"));
         }
-        Console.WriteLine("Hash: " + sb.ToString());
         return sb.ToString();
     }
 }
-static string crack(string hash)
-{
-    var pinLength = 5;
-    var hashTest = "00000";
-    var numberOfPenTests = 0;
-    var crackedPinHash = hash == hashTest;
-    var maxNumOfCombination = Math.Pow(10, pinLength);
 
-    var currentNum = 1;
-    while (!crackedPinHash)
-    {
-        for (int i = 0; i < maxNumOfCombination; i++)
-        {
-            var potentialPin = hashTest.Substring(0, pinLength - i.ToString().Length);
-            potentialPin += i.ToString();
-            numberOfPenTests++;
-            var potentialHash = ComputeMD5Hash(potentialPin);
-
-            if (hash == potentialHash)
-            {
-                crackedPinHash = true;
-                hashTest = potentialPin;
-                break;
-            }
-            else
-            {
-                continue;
-            }
-        }
-
-
-        crackedPinHash = true;
-        currentNum++;
-        Console.WriteLine("PIN: " + new string(hashTest));
-    }
-    // C0d3 g03s h3r3
-    string inputString = "92000";
-    string hashValue = ComputeMD5Hash(inputString);
-    Console.WriteLine($"MD5 Hash: {hashValue}");
-    Console.WriteLine($"Result: {hashTest}");
-    ComputeMD5Hash(inputString);
-    Console.WriteLine($"Number of pen tests: {numberOfPenTests}");
-    return hashTest;
-
-
-}
-//crack("5e8bc9faf28ed52ee7c6142f69a12616");
 crack("827ccb0eea8a706c4c34a16891f84e7b");
