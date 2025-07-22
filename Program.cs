@@ -886,36 +886,141 @@ GetSum(2, 1);*/
 ////crack("5e8bc9faf28ed52ee7c6142f69a12616");
 //crack("827ccb0eea8a706c4c34a16891f84e7b");
 
-static string crack(string hash)
-{
-    var pinLength = 5;
-    var maxNumOfCombination = Math.Pow(10, pinLength);
-    for (int i = 0; i < maxNumOfCombination; i++)
-    {
-        var potentialPin = i.ToString("D5");
-        var potentialHash = ComputeMD5Hash(potentialPin);
+//static string crack(string hash)
+//{
+//    var pinLength = 5;
+//    var maxNumOfCombination = Math.Pow(10, pinLength);
+//    for (int i = 0; i < maxNumOfCombination; i++)
+//    {
+//        var potentialPin = i.ToString("D5");
+//        var potentialHash = ComputeMD5Hash(potentialPin);
 
-        if (hash == potentialHash)
+//        if (hash == potentialHash)
+//        {
+//            Console.WriteLine(potentialPin);
+//            return potentialPin;
+//        }
+//    }
+//    return "";
+//}
+
+//static string ComputeMD5Hash(string input)
+//{
+//    using (MD5 md5 = MD5.Create())
+//    {
+//        byte[] hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+//        StringBuilder sb = new StringBuilder();
+//        foreach (byte b in hashBytes)
+//        {
+//            sb.Append(b.ToString("x2"));
+//        }
+//        return sb.ToString();
+//    }
+//}
+
+//crack("827ccb0eea8a706c4c34a16891f84e7b");
+
+
+//The makeLooper() function(or make_looper in your language) takes a string (of non-zero length) as an argument. It returns a function. The function it returns will return successive characters of the string on successive invocations. It will start back at the beginning of the string once it reaches the end.
+//For example:
+//Func<char> abc = Kata.MakeLooper("abc");
+//abc(); // should return 'a' on this first call
+//abc(); // should return 'b' on this second call
+//abc(); // should return 'c' on this third call
+//abc(); // should return 'a' again on this fourth call
+//Different loopers should not affect each other, so be wary of unmanaged global state.
+
+
+
+
+//Your task is to sort a given string. Each word in the string will contain a single number. This number is the position the word should have in the result.
+
+//Note: Numbers can be from 1 to 9. So 1 will be the first word (not 0).
+
+//If the input string is empty, return an empty string. The words in the input String will only contain valid consecutive numbers.
+
+//Examples
+//"is2 Thi1s T4est 3a"  -->  "Thi1s is2 3a T4est"
+//"4of Fo1r pe6ople g3ood th5e the2"  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
+//""  -->  ""
+
+static string Order(string words)
+{
+    var wordsList = words.Split(' ');
+
+    var ordered = new string[wordsList.Length + 1];
+
+    for (int i = 0; i < wordsList.Length; i++)
+    {
+        for (int j = 0; j < wordsList[i].Length; j++)
         {
-            Console.WriteLine(potentialPin);
-            return potentialPin;
+            int idx;
+            int.TryParse(wordsList[i][j].ToString(), out idx);
+
+            if (idx > 0)
+            {
+                ordered[idx - 1] = wordsList[i].ToString();
+            }
+
         }
     }
-    return "";
+
+    return string.Join(" ", ordered).Trim();
 }
 
-static string ComputeMD5Hash(string input)
+// OR:
+static string Order(string words)
 {
-    using (MD5 md5 = MD5.Create())
-    {
-        byte[] hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
-        StringBuilder sb = new StringBuilder();
-        foreach (byte b in hashBytes)
-        {
-            sb.Append(b.ToString("x2"));
-        }
-        return sb.ToString();
-    }
+    if (string.IsNullOrEmpty(words)) return words;
+    return string.Join(" ", words.Split(' ').OrderBy(s => s.ToList().Find(c => char.IsDigit(c))));
 }
 
-crack("827ccb0eea8a706c4c34a16891f84e7b");
+Order("is2 Thi1s T4est 3a");
+
+
+
+
+
+//Kata f = new();
+//Func<char> looper = f.MakeLooper("abc");
+
+//Console.WriteLine(looper); // a
+//Console.WriteLine(looper()); // b
+//Console.WriteLine(looper()); // c
+//Console.WriteLine(looper()); // a (loops back)
+
+
+
+//public class Kata
+//{
+//    public static int currentIndex { get; set; } = 0;
+//    public static char c { get; set; }
+//    public static bool stopSignal { get; set; } = false;
+//    public static int strLength { get; set; } = 0;
+//    public static string input { get; set; }
+
+//    public Func<char> MakeLooper(string str)
+//    {
+//        strLength = str.Length;
+//        input = str;
+//        c = str[currentIndex];
+//        Console.WriteLine($"Current index: {currentIndex}");
+//        return ReturnChar(c);
+//    }
+
+//    public static Func<char> ReturnChar(char c)
+//    {
+//        currentIndex++;
+//        if (currentIndex == strLength)
+//        {
+//            currentIndex = 0;
+//        }
+//        c = input[currentIndex];
+//        stopSignal = true;
+//        Console.WriteLine($"Current index: {currentIndex}");
+//        Console.WriteLine($"Current char: {c}");
+//        return ReturnChar(c);
+//    }
+//}
+
+
