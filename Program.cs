@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -944,40 +945,143 @@ GetSum(2, 1);*/
 //"4of Fo1r pe6ople g3ood th5e the2"  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
 //""  -->  ""
 
-static string Order(string words)
+//static string Order(string words)
+//{
+//    var wordsList = words.Split(' ');
+
+//    var ordered = new string[wordsList.Length + 1];
+
+//    for (int i = 0; i < wordsList.Length; i++)
+//    {
+//        for (int j = 0; j < wordsList[i].Length; j++)
+//        {
+//            int idx;
+//            int.TryParse(wordsList[i][j].ToString(), out idx);
+
+//            if (idx > 0)
+//            {
+//                ordered[idx - 1] = wordsList[i].ToString();
+//            }
+
+//        }
+//    }
+
+//    return string.Join(" ", ordered).Trim();
+//}
+
+//// OR:
+//static string Order(string words)
+//{
+//    if (string.IsNullOrEmpty(words)) return words;
+//    return string.Join(" ", words.Split(' ').OrderBy(s => s.ToList().Find(c => char.IsDigit(c))));
+//}
+
+//Order("is2 Thi1s T4est 3a");
+
+
+
+
+
+//Complete the solution so that the function will break up camel casing, using a space between words.
+
+//Example
+//"camelCasing"  =>  "camel Casing"
+//"identifier"   =>  "identifier"
+//""             =>  ""
+
+//static string BreakCamelCase(string str)
+//{
+//    var isCamelCase = str == str.ToLower();
+
+//    if (string.IsNullOrEmpty(str) && !isCamelCase)
+//    {
+//        return str;
+//    }
+
+//    var upperChar = new List<int>();
+//    var i = 0;
+//    foreach (char c in str)
+//    {
+//        if (c.ToString() != c.ToString().ToLower())
+//        {
+//            upperChar.Add(i);
+//        }
+//        i++;
+//    }
+
+//    var result = "";
+//    var lastI = 0;
+//    foreach (int x in upperChar)
+//    {
+//        result += str.Substring(lastI, x - lastI) + " ";
+//        lastI = x;
+//    }
+
+//    result += str.Substring(lastI);
+
+//    Console.WriteLine(string.Join(" ", result));
+//    Console.WriteLine(lastI);
+
+
+//    return result;
+//}
+
+//BreakCamelCase("camelCasingCaseCaseeee");
+
+//How can you tell an extrovert from an introvert at NSA?
+//Va gur ryringbef, gur rkgebireg ybbxf ng gur BGURE thl'f fubrf.
+//I found this joke on USENET, but the punchline is scrambled. Maybe you can decipher it?
+//According to Wikipedia, ROT13 is frequently used to obfuscate jokes on USENET.
+//For this task you're only supposed to substitute characters. Not spaces, punctuation, numbers, etc.
+
+//Test examples:
+//"EBG13 rknzcyr."-> "ROT13 example."
+//"This is my first ROT13 excercise!"-> "Guvf vf zl svefg EBG13 rkprepvfr!"
+
+static string Rot13(string input)
 {
-    var wordsList = words.Split(' ');
+    var sb = new StringBuilder();
 
-    var ordered = new string[wordsList.Length + 1];
-
-    for (int i = 0; i < wordsList.Length; i++)
+    foreach (char c in input)
     {
-        for (int j = 0; j < wordsList[i].Length; j++)
+        var asciiNum = (int)c;
+
+        if (asciiNum >= 65 && asciiNum <= 90)
         {
-            int idx;
-            int.TryParse(wordsList[i][j].ToString(), out idx);
-
-            if (idx > 0)
+            asciiNum += 13;
+            if (asciiNum > 90)
             {
-                ordered[idx - 1] = wordsList[i].ToString();
+                var left = asciiNum - 90;
+                asciiNum = 65 + left - 1;
             }
-
+            var ch = (char)asciiNum;
+            sb.Append(ch);
+            continue;
         }
+        if (asciiNum >= 97 && asciiNum <= 122)
+        {
+            asciiNum += 13;
+            if (asciiNum > 122)
+            {
+                var left = asciiNum - 122;
+                asciiNum = 97 + left - 1;
+            }
+            var ch = (char)asciiNum;
+            sb.Append(ch);
+            continue;
+        }
+
+        sb.Append(c);
     }
+    Console.WriteLine(sb.ToString());
+    return sb.ToString();
 
-    return string.Join(" ", ordered).Trim();
+    // better solution
+//    return new string(input.Select(x =>
+//   char.IsLetter(x) ? (char)((int)x + (char.ToUpper(x) < 'N' ? 13 : -13)) : x).ToArray());
+//}
 }
-
-// OR:
-static string Order(string words)
-{
-    if (string.IsNullOrEmpty(words)) return words;
-    return string.Join(" ", words.Split(' ').OrderBy(s => s.ToList().Find(c => char.IsDigit(c))));
-}
-
-Order("is2 Thi1s T4est 3a");
-
-
+Rot13("ROT13 example.");
 
 
 
