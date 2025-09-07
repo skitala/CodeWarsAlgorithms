@@ -1038,93 +1038,87 @@ GetSum(2, 1);*/
 //"EBG13 rknzcyr."-> "ROT13 example."
 //"This is my first ROT13 excercise!"-> "Guvf vf zl svefg EBG13 rkprepvfr!"
 
-static string Rot13(string input)
-{
-    var sb = new StringBuilder();
-
-    foreach (char c in input)
-    {
-        var asciiNum = (int)c;
-
-        if (asciiNum >= 65 && asciiNum <= 90)
-        {
-            asciiNum += 13;
-            if (asciiNum > 90)
-            {
-                var left = asciiNum - 90;
-                asciiNum = 65 + left - 1;
-            }
-            var ch = (char)asciiNum;
-            sb.Append(ch);
-            continue;
-        }
-        if (asciiNum >= 97 && asciiNum <= 122)
-        {
-            asciiNum += 13;
-            if (asciiNum > 122)
-            {
-                var left = asciiNum - 122;
-                asciiNum = 97 + left - 1;
-            }
-            var ch = (char)asciiNum;
-            sb.Append(ch);
-            continue;
-        }
-
-        sb.Append(c);
-    }
-    Console.WriteLine(sb.ToString());
-    return sb.ToString();
-
-    // better solution
-//    return new string(input.Select(x =>
-//   char.IsLetter(x) ? (char)((int)x + (char.ToUpper(x) < 'N' ? 13 : -13)) : x).ToArray());
-//}
-}
-Rot13("ROT13 example.");
-
-
-
-//Kata f = new();
-//Func<char> looper = f.MakeLooper("abc");
-
-//Console.WriteLine(looper); // a
-//Console.WriteLine(looper()); // b
-//Console.WriteLine(looper()); // c
-//Console.WriteLine(looper()); // a (loops back)
-
-
-
-//public class Kata
+//static string Rot13(string input)
 //{
-//    public static int currentIndex { get; set; } = 0;
-//    public static char c { get; set; }
-//    public static bool stopSignal { get; set; } = false;
-//    public static int strLength { get; set; } = 0;
-//    public static string input { get; set; }
+//    var sb = new StringBuilder();
 
-//    public Func<char> MakeLooper(string str)
+//    foreach (char c in input)
 //    {
-//        strLength = str.Length;
-//        input = str;
-//        c = str[currentIndex];
-//        Console.WriteLine($"Current index: {currentIndex}");
-//        return ReturnChar(c);
-//    }
+//        var asciiNum = (int)c;
 
-//    public static Func<char> ReturnChar(char c)
-//    {
-//        currentIndex++;
-//        if (currentIndex == strLength)
+//        if (asciiNum >= 65 && asciiNum <= 90)
 //        {
-//            currentIndex = 0;
+//            asciiNum += 13;
+//            if (asciiNum > 90)
+//            {
+//                var left = asciiNum - 90;
+//                asciiNum = 65 + left - 1;
+//            }
+//            var ch = (char)asciiNum;
+//            sb.Append(ch);
+//            continue;
 //        }
-//        c = input[currentIndex];
-//        stopSignal = true;
-//        Console.WriteLine($"Current index: {currentIndex}");
-//        Console.WriteLine($"Current char: {c}");
-//        return ReturnChar(c);
+//        if (asciiNum >= 97 && asciiNum <= 122)
+//        {
+//            asciiNum += 13;
+//            if (asciiNum > 122)
+//            {
+//                var left = asciiNum - 122;
+//                asciiNum = 97 + left - 1;
+//            }
+//            var ch = (char)asciiNum;
+//            sb.Append(ch);
+//            continue;
+//        }
+
+//        sb.Append(c);
 //    }
+//    Console.WriteLine(sb.ToString());
+//    return sb.ToString();
+
+//    // better solution
+//    //    return new string(input.Select(x =>
+//    //   char.IsLetter(x) ? (char)((int)x + (char.ToUpper(x) < 'N' ? 13 : -13)) : x).ToArray());
+//    //}
 //}
+//Rot13("ROT13 example.");
+
+
+
+Kata f = new();
+Func<char> looper = f.MakeLooper("ab");
+
+Console.WriteLine(looper()); // a
+Console.WriteLine(looper()); // b
+Console.WriteLine(looper()); // c
+Console.WriteLine(looper()); // a (loops back)
+
+
+
+public class Kata
+{
+    public Func<char> MakeLooper(string str)
+    {
+        int i = -1;
+        return () =>
+        {
+            if (i < str.Length - 1)
+            {
+                i++;
+                if(i == str.Length)
+                {
+                    i = 0;
+                }
+                int r = str[i];
+                return (char)r;
+            }
+            else
+            {
+                i = 0;
+                return str[0];
+            }
+        };
+    }
+}
 
 
